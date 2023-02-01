@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PizzaBlock from '../skiletons/PizzaBkock';
 import ItemPizza from './ItemPizza';
 
-const ListPizza = ({ data, processSatate }) => {
+const ListPizza = ({ data, processSatate, getSortItem }) => {
   const [count, setCount] = useState(0);
   console.log(data);
   const inc = () => {
@@ -27,6 +27,7 @@ const ListPizza = ({ data, processSatate }) => {
                   rating={rating}
                   types={types}
                   key={id}
+                  sortItem={() => getSortItem(category)}
                 />
               );
             })}
