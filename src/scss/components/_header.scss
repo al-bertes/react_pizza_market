@@ -25,10 +25,17 @@
       letter-spacing: 1%;
       text-transform: uppercase;
       font-weight: 800;
+      @media (min-width: 320px) and (max-width: 768px) {
+        font-size: 14px;
+        text-align: left;
+      }
     }
 
     p {
       color: #7b7b7b;
+      @media (min-width: 320px) and (max-width: 768px) {
+        font-size: 13;
+      }
     }
   }
 }
