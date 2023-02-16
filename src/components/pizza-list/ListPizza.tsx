@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PizzaBlock from '../skiletons/PizzaBkock';
 import ItemPizza from './ItemPizza';
-
-const ListPizza = ({ data, processSatate, getSortItem }) => {
-  const [count, setCount] = useState(0);
-  console.log(data);
-  const inc = () => {
-    setCount((count) => count + 1);
-  };
+type pizzaesT = {
+  id: number,
+  imageUrl: string,
+ title: string,
+ types: number[],
+ sizes: number[],
+ price: number,
+ category: string,
+ rating: number
+}
+type listPropsT = {
+  data: pizzaesT[];
+  processSatate: boolean;
+}
+const ListPizza: React.FC<listPropsT> = ({ data, processSatate }) => {
   return (
     <>
       <h2 className="content__title">Все пиццы</h2>
@@ -17,8 +25,6 @@ const ListPizza = ({ data, processSatate, getSortItem }) => {
           : data.map(({ id, imageUrl, title, sizes, category, rating, price, types }) => {
               return (
                 <ItemPizza
-                  ddd={count}
-                  inc={inc}
                   price={price}
                   title={title}
                   imageUrl={imageUrl}
@@ -27,7 +33,7 @@ const ListPizza = ({ data, processSatate, getSortItem }) => {
                   rating={rating}
                   types={types}
                   key={id}
-                  sortItem={() => getSortItem(category)}
+                  id={id}
                 />
               );
             })}

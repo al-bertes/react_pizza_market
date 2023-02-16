@@ -1,17 +1,39 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { hendleSort } from '../../redux/slices/sortSlice';
 
-const Sort = ({activeSortItem, setActiveSortItem}) => {
-
+// type sortItemT = {
+//   title: string,
+//   name: string
+// }
+const Sort = () => {
+  const dispatch = useDispatch();
+  const {sort} = useSelector(state => state.sort);
   const [activePopup, setActivePopup] = React.useState(false);
-  const sortItems = ['популярности', 'цене', 'алфавиту'];
+  const refSort = useRef(null);
+
+
+  const sortItems = [
+    {
+      title: 'популярности',
+      name: 'rating'
+    },
+    {
+      title: 'цене',
+      name: 'price' 
+    },
+    {
+      title: 'алфавиту',
+      name: 'title'
+    }
+  ];
 
   const styles = {
     visibility: activePopup ? 'visible' : 'hidden',
   };
 
-  console.log(activePopup);
   return (
-    <div className="sort">
+    <div className="sort" ref={refSort}>
       <div className="sort__label">
         <svg width={10} height={6} viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -20,14 +42,23 @@ const Sort = ({activeSortItem, setActiveSortItem}) => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setActivePopup(!activePopup)}>{sortItems[activeSortItem]}</span>
-      </div>
+        <span onClick={e => (e.currentTarget === e.target) && setActivePopup(!activePopup)}>{sort.title}</span>
+      </div> 
       <div className="sort__popup" style={styles}>
         <ul>
-          {sortItems.map((_, i) => {
+          {sortItems.map((item, index) => {
             return (
-              <li key={i} onClick={() => { setActiveSortItem(i); setActivePopup(!activePopup)}} className={i === activeSortItem ? 'active' : ''}>{sortItems[i]}</li>
-            )
+              <li
+                key={index}
+                onClick={() => {
+                  dispatch(hendleSort(item));
+                  setActivePopup(!activePopup);
+                }}
+                className={item.name === sort.name ? 'active' : ''}
+              >
+                {item.title}
+              </li>
+            );
           })}
         </ul>
       </div>
