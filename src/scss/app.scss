@@ -330,7 +330,9 @@ body {
     margin: 0 auto;
     width: 560px;
     text-align: center;
-
+    @media (min-width: 320px) and (max-width: 768px) {
+      width: 70%;
+    }
     h2 {
       font-size: 32px;
       margin-bottom: 10px;
@@ -352,6 +354,10 @@ body {
       display: block;
       width: 300px;
       margin: 45px auto 60px;
+      @media (min-width: 320px) and (max-width: 768px) {
+        width: 70%;
+        font-size: 18px;
+      }
     }
 
     .button--black {
